@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
 function Login() {
@@ -6,7 +7,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
@@ -20,7 +21,7 @@ function Login() {
     if (error) {
       setError('Error: Credenciales inválidas.');
     } else {
-      alert('¡Has iniciado sesión!');
+      navigate('/dashboard'); 
     }
     setLoading(false);
   };
@@ -54,6 +55,16 @@ function Login() {
         </button>
       </form>
       {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+
+      <div className="mt-4 text-center flex justify-center gap-2 text-white">
+        <span>¿No tienes una cuenta?</span>
+        <Link
+          to="/register"
+          className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+        >
+          Regístrate
+        </Link>
+      </div>
     </div>
   );
 }
