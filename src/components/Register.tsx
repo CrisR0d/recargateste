@@ -40,7 +40,7 @@ function Register() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="bg-slate-700 text-white p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-green-500"
         />
         <input
           type="password"
@@ -48,7 +48,7 @@ function Register() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="bg-slate-700 text-white p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-green-500"
         />
         <button
           type="submit"

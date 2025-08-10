@@ -36,7 +36,7 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="bg-slate-700 text-white p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="password"
@@ -44,7 +44,7 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="bg-slate-700 text-white p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"

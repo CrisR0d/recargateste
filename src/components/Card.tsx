@@ -22,8 +22,8 @@ export default function Card({
     <button
       type="button"
       onClick={onClick}
-      className="group w-56 text-left rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 transition
-                 hover:-translate-y-0.5 hover:shadow-lg hover:ring-slate-300 focus:outline-none
+      className="group w-56 text-left rounded-2xl bg-white p-2 shadow-xs ring-1 ring-slate-200 transition
+                 hover:-translate-y-0.5 hover:shadow-lg hover:ring-slate-300 focus:outline-hidden
                  focus-visible:ring-2 focus-visible:ring-indigo-500"
     >
       <div className="relative overflow-hidden rounded-xl">
@@ -34,10 +34,10 @@ export default function Card({
           className="h-36 w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/0" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/40 via-black/10 to-black/0" />
 
         <div className="absolute left-2 top-2">
-          <span className="rounded-md bg-yellow-400 px-2 py-1 text-[11px] font-extrabold uppercase tracking-wide text-black shadow-sm">
+          <span className="rounded-md bg-yellow-400 px-2 py-1 text-[11px] font-extrabold uppercase tracking-wide text-black shadow-xs">
             {topBadge}
           </span>
         </div>
@@ -50,7 +50,7 @@ export default function Card({
 
         {promo ? (
           <div className="absolute inset-x-0 bottom-2 flex justify-center">
-            <span className="rounded-md bg-yellow-400 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-black shadow">
+            <span className="rounded-md bg-yellow-400 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-black shadow-sm">
               {promo}
             </span>
           </div>
