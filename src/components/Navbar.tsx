@@ -8,6 +8,7 @@ type Props = {
 
 export default function Navbar({ onSearch }: Props) {
   const [q, setQ] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -15,14 +16,10 @@ export default function Navbar({ onSearch }: Props) {
   };
 
   return (
-    <header className="w-full">
-      <div
-        className="mx-auto mt-4 w-[95%] rounded-2xl
-                   bg-linear-to-b from-violet-600 to-indigo-800
-                   p-3 shadow-lg ring-1 ring-white/10"
-      >
-        <div className="flex items-center gap-3 sm:gap-5">
-          {/* LOGO */}
+    <header>
+      <div className="bg-primary p-4 sm:p-3 rounded-2xl">
+        <div className="mx-auto flex items-center justify-between sm:gap-5 px-2">
+          {/* Logo */}
           <Link
             to="/"
             className="select-none rounded-lg px-3 py-2 text-lg font-extrabold tracking-wide text-white"
@@ -30,14 +27,14 @@ export default function Navbar({ onSearch }: Props) {
             LOGO
           </Link>
 
-          {/* Search */}
-          <form onSubmit={handleSubmit} className="flex-1">
+          {/* Search Form */}
+          <form onSubmit={handleSubmit} className="flex flex-1 justify-center sm:justify-start">
             <label htmlFor="navbar-search" className="sr-only">
               Search
             </label>
             <div
-              className="relative w-full overflow-hidden rounded-xl
-                         bg-white/10 backdrop-blur-xs
+              className="relative w-full  overflow-hidden rounded-xl
+                         bg-white/10 backdrop-blur-sm
                          ring-1 ring-white/15 focus-within:ring-white/30
                          transition"
             >
@@ -45,27 +42,75 @@ export default function Navbar({ onSearch }: Props) {
                 id="navbar-search"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search..."
+                placeholder="Busca juegos o gif cards"
                 className="w-full bg-transparent px-4 py-2.5 text-sm text-white placeholder-white/60
-                           outline-hidden"
+                           outline-none"
               />
-              {/* subtle inner highlight */}
-              <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-b from-white/10 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 rounded-xl" />
             </div>
           </form>
 
-          {/* Log in button */}
-          <Link
-            to="/login"
-            className="shrink-0 rounded-xl px-4 py-2 text-sm font-semibold text-white
-                       bg-linear-to-b from-pink-500 to-fuchsia-600
-                       shadow-md ring-1 ring-white/10
-                       transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
-                       focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white/60"
+          {/* Mobile Menu Toggle */}
+          <button
+            className="sm:hidden text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            Log in
-          </Link>
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+
+          {/* Links - Desktop */}
+          <div className="hidden sm:flex gap-4">
+            <Link
+              to="/login"
+              className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
+                         transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              Iniciar sesión
+            </Link>
+
+            <Link
+              to="/register"
+              className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
+                         transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              Registrarse
+            </Link>
+          </div>
         </div>
+
+        {/* Mobile Menu - Conditional rendering */}
+        {isMenuOpen && (
+          <div className="sm:hidden mt-4 flex flex-col gap-4 px-2">
+            <Link
+              to="/login"
+              className="bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white"
+            >
+              Iniciar sesión
+            </Link>
+
+            <Link
+              to="/register"
+              className="bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white"
+            >
+              Registrarse
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );
