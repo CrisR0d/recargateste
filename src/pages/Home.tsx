@@ -36,7 +36,9 @@ export default function Home() {
       <div className="md:block hidden mx-auto w-auto ">
         <HeroCarousel slides={slides} autoPlay={false} autoPlayMs={5500} />
       </div>
-      <HomeView/>
+      <div className="mt-10">
+        <HomeView/>
+      </div>
     </>
   )
 }

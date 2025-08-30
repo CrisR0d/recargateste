@@ -38,7 +38,7 @@ export const HomeView = () => {
             { title: "FREE FIRE", price: "$10.99", imageUrl: "https://bonoxs.com/_next/image?url=https%3A%2F%2Fprod-bnx-public.s3.us-east-1.amazonaws.com%2Fmedia%2Fcatalog%2Fproduct%2Ff%2Fr%2Ffreefire_general_10_bonus_latam-min_1_1_1.jpg&w=256&q=75x" },
             { title: "MOBILE LEGENDS", price: "$4.99", imageUrl: "https://bonoxs.com/_next/image?url=https%3A%2F%2Fprod-bnx-public.s3.us-east-1.amazonaws.com%2Fmedia%2Fcatalog%2Fproduct%2Fm%2Fl%2Fmlbb_recargadirecta_240x300.jpg&w=256&q=75" },
             { title: "MOBILE LEGENDS", price: "$0.99", imageUrl: "https://bonoxs.com/_next/image?url=https%3A%2F%2Fprod-bnx-public.s3.us-east-1.amazonaws.com%2Fmedia%2Fcatalog%2Fproduct%2Fm%2Fl%2Fmlbb_recargadirecta_240x300.jpg&w=256&q=75" },
-            { title: "STEAM", price: "$9.99", imageUrl: "https://bonoxs.com/_next/image?url=https%3A%2F%2Fprod-bnx-public.s3.us-east-1.amazonaws.com%2Fmedia%2Fcatalog%2Fproduct%2Fv%2Fa%2Fvalorant_dec23_240x300_00_2_15.jpg&w=256&q=75" },
+            { title: "STEAM", price: "$9.99", imageUrl: "https://bonoxs.com/_next/image?url=https%3A%2F%2Fprod-bnx-public.s3.us-east-1.amazonaws.com%2Fmedia%2Fcatalog%2Fproduct%2Fv%2Fa%2Fvalorant_dec23_240x300_00_2_15.jpg&w=256&q=75", href: 'product/mobile-legends' },
           ]}
         />
       )}
