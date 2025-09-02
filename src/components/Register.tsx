@@ -1,64 +1,91 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { supabase } from "../supabaseClient.js";
 
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setMessage("");
-    setLoading(true);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onSubmit",
+  });
 
+  const onSubmit = async ({ email, password }) => {
     const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
     if (error) {
-      setMessage("Error: " + error.message);
+      setError("root", { message: "Error: " + error.message });
     } else {
-      setMessage(
-        "¡Registro exitoso! Revisa tu correo para confirmar la cuenta."
-      );
+      setError("root", {
+        message: "¡Registro exitoso! Revisa tu correo para confirmar la cuenta.",
+      });
+      navigate("/login");
     }
-    setLoading(false);
   };
 
   return (
-    <div className="bg-slate-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-      <h2 className="text-white text-3xl font-bold mb-6 text-center">
-        Crear Cuenta
-      </h2>
-      <form onSubmit={handleRegister} className="flex flex-col gap-4">
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-green-500"
-        />
-        <input
-          type="password"
-          placeholder="Contraseña (mínimo 6 caracteres)"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-green-500"
-        />
+    <div className="bg-slate-800 p-8 rounded-lg shadow-lg w-full m-auto max-w-md">
+      <h2 className="text-white text-3xl font-bold mb-6 text-center">Crear Cuenta</h2>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+    
+        <div className="flex flex-col gap-1">
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            autoComplete="email"
+            className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-green-500"
+            {...register("email", {
+              required: "El correo es obligatorio.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Ingresa un correo válido.",
+              },
+            })}
+          />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <input
+            type="password"
+            placeholder="Contraseña (mínimo 6 caracteres)"
+            autoComplete="current-password"
+            className="bg-slate-700 text-white p-3 rounded-md focus:outline-hidden focus:ring-2 focus:ring-green-500"
+            {...register("password", {
+              required: "La contraseña es obligatoria.",
+              minLength: {
+                value: 6,
+                message: "La contraseña debe tener al menos 6 caracteres.",
+              },
+            })}
+          />
+          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+        </div>
+
+        {/* Error de servidor (root) */}
+        {errors.root && <p className="text-red-500 text-center">{errors.root.message}</p>}
+
         <button
           type="submit"
-          disabled={loading}
+          disabled={isSubmitting}
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-md transition-colors disabled:opacity-50"
         >
-          {loading ? "Registrando..." : "Registrarse"}
+          {isSubmitting ? "Registrando..." : "Registrarse"}
         </button>
       </form>
-      {message && <p className="text-white mt-4 text-center">{message}</p>}
 
       <div className="mt-4 text-center flex justify-center gap-2">
         <span>¿Ya tienes una cuenta?</span>
