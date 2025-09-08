@@ -20,9 +20,8 @@ function Login() {
   });
 
   const onSubmit = async ({ email, password }) => {
-    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    console.log(data);
     if (error) {
       setError('root', { message: 'Error: Credenciales inválidas.' });
       return;
