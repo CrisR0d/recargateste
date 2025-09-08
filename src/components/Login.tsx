@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { supabase } from '../supabaseClient.js';
+import { supabase } from '../utils/supabaseClient.js';
 
 function Login() {
   const navigate = useNavigate();
@@ -20,14 +20,15 @@ function Login() {
   });
 
   const onSubmit = async ({ email, password }) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
 
+    console.log(data);
     if (error) {
       setError('root', { message: 'Error: Credenciales inválidas.' });
       return;
     }
 
-    navigate('/dashboard');
+    navigate('/');
   };
 
   return (
@@ -54,7 +55,6 @@ function Login() {
           )}
         </div>
 
-        {/* Password */}
         <div className="flex flex-col gap-1">
           <input
             type="password"
