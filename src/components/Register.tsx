@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { supabase } from "../supabaseClient.js";
+import { supabase } from "../utils/supabaseClient.js";
 
 function Register() {
   const navigate = useNavigate();
