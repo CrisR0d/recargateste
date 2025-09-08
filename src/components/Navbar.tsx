@@ -1,12 +1,16 @@
 // src/components/Navbar.tsx
 import { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from '@/providers/AuthProvider'
 
 type Props = {
   onSearch?: (q: string) => void;
 };
 
 export default function Navbar({ onSearch }: Props) {
+
+  const { user, signOut } = useAuth();
+
   const [q, setQ] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -19,7 +23,7 @@ export default function Navbar({ onSearch }: Props) {
     <header>
       <div className="bg-primary p-4 sm:p-3 rounded-2xl">
         <div className="mx-auto flex items-center justify-between sm:gap-5 px-2">
-          {/* Logo */}
+
           <Link
             to="/"
             className="select-none rounded-lg px-3 py-2 text-lg font-extrabold tracking-wide text-white"
@@ -27,7 +31,6 @@ export default function Navbar({ onSearch }: Props) {
             LOGO
           </Link>
 
-          {/* Search Form */}
           <form onSubmit={handleSubmit} className="flex flex-1 justify-center sm:justify-start">
             <label htmlFor="navbar-search" className="sr-only">
               Search
@@ -71,26 +74,49 @@ export default function Navbar({ onSearch }: Props) {
             </svg>
           </button>
 
-          {/* Links - Desktop */}
-          <div className="hidden sm:flex gap-4">
-            <Link
-              to="/login"
-              className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
-                         transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-            >
-              Iniciar sesión
-            </Link>
+          {
+            user && (
+              <div className="hidden sm:flex gap-4">
+                <span>bienvenido: {user.email}</span>
 
-            <Link
-              to="/register"
-              className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
-                         transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-            >
-              Registrarse
-            </Link>
-          </div>
+                <button
+                  onClick={signOut}
+                  className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
+                            transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
+                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                >
+                  Cerrar sesion
+                </button>
+              </div>
+            )
+
+          }
+
+          {
+            !user && (
+              <div className="hidden sm:flex gap-4">
+                <Link
+                  to="/login"
+                  className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
+                            transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
+                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                >
+                  Iniciar sesión
+                </Link>
+
+                <Link
+                  to="/register"
+                  className="shrink-0 bg-secondary rounded-xl px-4 py-2 text-sm font-semibold text-white
+                            transition hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0
+                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                >
+                  Registrarse
+                </Link>
+              </div>
+            )
+
+          }
+          
         </div>
 
         {/* Mobile Menu - Conditional rendering */}
